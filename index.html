@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="A learning game for 美洲華語 第一冊." />
+  <title>美洲華語 第一冊 · The Donkey Road</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400;9..144,600&family=Nunito+Sans:wght@400;600;800&family=Noto+Serif+TC:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap"
+  />
+</head>
+<body>
+  <div class="wrap">
+    <header class="mast">
+      <h1 id="chapter-title">美洲華語 第一冊</h1>
+      <span class="chip" id="chip-chapter">loading…</span>
+      <span class="chip" id="chip-lessons"></span>
+      <span class="spacer"></span>
+      <span class="chip" id="chip-audio">audio…</span>
+      <button class="chip chip-btn" id="btn-profile" hidden>switch player</button>
+    </header>
+
+    <div class="frame">
+      <div class="bar">
+        <span class="who" id="hud-who">—</span>
+        <span class="grow"></span>
+        <span class="stat" id="hud-scene"></span>
+        <span class="stat" id="hud-donkeys" hidden>驢 <b>0</b> / 10</span>
+        <span class="stat coins" id="hud-coins"><span class="dot"></span><b>0</b></span>
+      </div>
+
+      <div id="stage">
+        <div class="pad" id="pad" aria-hidden="true">
+          <button class="u" data-dir="up" aria-label="Up">▲</button>
+          <button class="l" data-dir="left" aria-label="Left">◀</button>
+          <button class="r" data-dir="right" aria-label="Right">▶</button>
+          <button class="d" data-dir="down" aria-label="Down">▼</button>
+        </div>
+      </div>
+    </div>
+
+    <details class="panel" id="panel">
+      <summary><h2>Learning engine</h2><span class="caret">▸</span></summary>
+      <div class="pbody">
+        <p class="pnote">
+          Not part of the child's game — instrumentation for review. Every value is live,
+          and nothing here is visible to a player.
+        </p>
+        <div>
+          <p class="ptitle">State</p>
+          <dl class="kv" id="panel-state"></dl>
+        </div>
+        <div>
+          <p class="ptitle">Mastery · <span id="panel-count">0</span> 生字</p>
+          <div class="scroll">
+            <table class="mt">
+              <thead>
+                <tr><th></th><th>注音</th><th>拼音</th><th>部首</th><th>Mastery</th><th>Seen</th></tr>
+              </thead>
+              <tbody id="panel-table"></tbody>
+            </table>
+          </div>
+        </div>
+        <p class="legend">
+          <b>Two kinds of question.</b> A <span class="c-world">world</span> question's answer is
+          whatever is on screen — count your own donkeys. A <span class="c-far">scheduler</span>
+          question's target comes from mastery: lowest first, with a known character folded back
+          in every fourth turn. <b>Choices</b> go 2 below mastery 2, then 3, then 4.
+          <b>Distractors</b> come from the <span class="c-far">far</span> pool while a character is
+          new and the <span class="c-near">near</span> pool once it is known — 十/千 and 六/八 are
+          near, 九/五 are far. Mastery rises 1 for an unaided correct answer, not at all when a hint
+          was used (<span class="c-gold">gold</span> bar), and falls 1 on a miss. There is no losing.
+        </p>
+      </div>
+    </details>
+
+    <footer class="note">
+      <b>Arrow keys or WASD to walk. <kbd>SPACE</kbd> to talk</b> to whoever is blocking the road.
+      Get 小小's ten donkeys over the mountain, through the orchard, and home.
+      <br /><br />
+      Content lives in <code>content/</code> and is loaded at runtime — edit
+      <code>content/chapters/ch01.json</code> and reload, no rebuild. Schema:
+      <code>docs/CONTENT.md</code>. Placeholder flat-shape art; run <code>npm run audio</code> to
+      replace browser speech with pre-generated zh-TW files.
+    </footer>
+  </div>
+
+  <div id="modal-root"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

@@ -1,0 +1,534 @@
+{
+  "_doc": "Chapter 1. Schema and authoring notes: docs/CONTENT.md. Nothing here is code -- edit and reload.",
+  "chapter": 1,
+  "unit": 1,
+  "lessons": [
+    1,
+    2
+  ],
+  "title": "少了一頭驢",
+  "titleEn": "The Missing Donkey",
+  "virtue": {
+    "zh": "細心",
+    "en": "Look carefully before you panic."
+  },
+  "shengzi": [
+    "一",
+    "二",
+    "三",
+    "四",
+    "五",
+    "六",
+    "七",
+    "八",
+    "九",
+    "十",
+    "百",
+    "千"
+  ],
+  "counters": {
+    "donkeys": 5,
+    "squirrels": 4,
+    "fruit": 10
+  },
+  "templates": {
+    "listen": {
+      "en": "Listen. Which character did you hear?",
+      "parts": [
+        null
+      ],
+      "speakAnswer": true
+    },
+    "add": {
+      "en": "{a} donkeys here, and {b} more coming over the hill. How many is that?",
+      "parts": [
+        "{A}",
+        "加",
+        "{B}",
+        "等",
+        "於",
+        null
+      ],
+      "range": [
+        2,
+        5
+      ]
+    },
+    "sub": {
+      "en": "{a} donkeys were drinking. {b} wandered off. How many are left?",
+      "parts": [
+        "{A}",
+        "減",
+        "{B}",
+        "等",
+        "於",
+        null
+      ],
+      "range": [
+        1,
+        4
+      ]
+    }
+  },
+  "scenes": [
+    {
+      "id": "mountain",
+      "name": "The mountain path",
+      "nameZh": "上山找老虎",
+      "lesson": 1,
+      "open": "小小 is taking ten donkeys over the mountain to the orchard. Five of them are already lost. Walk with him.",
+      "map": {
+        "w": 46,
+        "h": 20,
+        "path": {
+          "base": 9.0,
+          "amp": 2.0,
+          "period": 7.0,
+          "width": 2
+        },
+        "treeXs": [
+          3,
+          6,
+          9,
+          17,
+          20,
+          24,
+          29,
+          33,
+          38,
+          41
+        ],
+        "walls": [
+          {
+            "x": 14,
+            "kind": "rock"
+          }
+        ],
+        "features": [
+          {
+            "kind": "bigtree",
+            "x": 26,
+            "y": "path-3"
+          },
+          {
+            "kind": "rock",
+            "x": 10,
+            "y": "path-3"
+          },
+          {
+            "kind": "rock",
+            "x": 35,
+            "y": "path+3"
+          }
+        ]
+      },
+      "spawn": {
+        "x": 2,
+        "y": "path+1"
+      },
+      "exit": {
+        "x": 44,
+        "to": "orchard"
+      },
+      "actors": [
+        {
+          "id": "xiaoxiao",
+          "sprite": "pal",
+          "name": "小小",
+          "nameEn": "Shau Shau",
+          "x": 3,
+          "y": "path",
+          "follows": true
+        },
+        {
+          "id": "tiger",
+          "sprite": "tiger",
+          "name": "老虎",
+          "nameEn": "the tiger",
+          "x": 14,
+          "y": "path",
+          "blocksWall": 14,
+          "intro": "Nobody ever counts properly. Count for me and you may pass.",
+          "reward": "The tiger pads off up the hill, satisfied at last.",
+          "script": [
+            {
+              "kind": "world",
+              "counter": "donkeys",
+              "en": "How many donkeys are walking with you? Turn round and count them.",
+              "parts": [
+                "你",
+                "有",
+                null,
+                "頭",
+                "驢"
+              ]
+            },
+            {
+              "kind": "scheduled",
+              "template": "sub"
+            },
+            {
+              "kind": "scheduled",
+              "template": "listen"
+            },
+            {
+              "kind": "scheduled",
+              "template": "add"
+            },
+            {
+              "kind": "scheduled",
+              "template": "listen"
+            }
+          ],
+          "onDone": {
+            "unblock": true,
+            "moveTo": {
+              "x": 14,
+              "y": "path-4"
+            }
+          }
+        },
+        {
+          "id": "squirrels",
+          "sprite": "squirrel",
+          "name": "松鼠",
+          "nameEn": "the squirrels",
+          "x": 26,
+          "y": "path-1",
+          "intro": "We climbed up here to hide from that tiger. Count us and we will come down.",
+          "reward": "A squirrel drops onto your shoulder and stays there. 小松鼠 joined you.",
+          "script": [
+            {
+              "kind": "world",
+              "counter": "squirrels",
+              "en": "How many squirrels are up in the tree?",
+              "parts": [
+                "樹",
+                "上",
+                "有",
+                null,
+                "隻",
+                "松",
+                "鼠"
+              ]
+            },
+            {
+              "kind": "scheduled",
+              "template": "add"
+            },
+            {
+              "kind": "scheduled",
+              "template": "listen"
+            },
+            {
+              "kind": "scheduled",
+              "template": "sub"
+            }
+          ],
+          "onDone": {
+            "party": "小松鼠",
+            "coins": 3
+          }
+        }
+      ],
+      "props": [
+        {
+          "sprite": "squirrel",
+          "counter": "squirrels",
+          "at": [
+            [
+              26,
+              "path-4"
+            ],
+            [
+              27,
+              "path-5"
+            ],
+            [
+              25,
+              "path-4"
+            ],
+            [
+              27,
+              "path-3"
+            ],
+            [
+              26,
+              "path-6"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "orchard",
+      "name": "The orchard",
+      "nameZh": "一棵樹上十樣果",
+      "lesson": 2,
+      "open": "One tree, ten kinds of fruit, and a keeper who will not open the gate for anyone who cannot count.",
+      "map": {
+        "w": 38,
+        "h": 20,
+        "path": {
+          "base": 9.0,
+          "amp": 1.2,
+          "period": 9.0,
+          "width": 2
+        },
+        "treeXs": [
+          4,
+          8,
+          12,
+          16,
+          22,
+          26,
+          30
+        ],
+        "walls": [
+          {
+            "x": 32,
+            "kind": "fence"
+          }
+        ],
+        "features": [
+          {
+            "kind": "bigtree",
+            "x": 9,
+            "y": "path-4"
+          },
+          {
+            "kind": "crate",
+            "x": 20,
+            "y": "path+2"
+          },
+          {
+            "kind": "crate",
+            "x": 21,
+            "y": "path+2"
+          },
+          {
+            "kind": "crate",
+            "x": 22,
+            "y": "path+2"
+          },
+          {
+            "kind": "crate",
+            "x": 20,
+            "y": "path+3"
+          },
+          {
+            "kind": "crate",
+            "x": 21,
+            "y": "path+3"
+          }
+        ]
+      },
+      "spawn": {
+        "x": 2,
+        "y": "path"
+      },
+      "exit": {
+        "x": 36,
+        "to": "road"
+      },
+      "actors": [
+        {
+          "id": "xiaoxiao",
+          "sprite": "pal",
+          "name": "小小",
+          "nameEn": "Shau Shau",
+          "x": 3,
+          "y": "path",
+          "follows": true
+        },
+        {
+          "id": "keeper",
+          "sprite": "keeper",
+          "name": "果園",
+          "nameEn": "the orchard keeper",
+          "x": 32,
+          "y": "path",
+          "blocksWall": 32,
+          "intro": "Ten kinds of fruit on one tree, and crates to fill. Count with me and the gate is yours.",
+          "reward": "The gate swings open — and five donkeys that strayed off are standing right behind it. 驢 十 / 十.",
+          "script": [
+            {
+              "kind": "world",
+              "counter": "fruit",
+              "en": "One tree, and every branch a different fruit. How many kinds are there?",
+              "parts": [
+                "一",
+                "棵",
+                "樹",
+                "上",
+                null,
+                "樣",
+                "果"
+              ]
+            },
+            {
+              "kind": "scheduled",
+              "template": "listen"
+            },
+            {
+              "kind": "fixed",
+              "answer": "百",
+              "en": "Ten crates, and ten fruit in every crate. What does that come to?",
+              "parts": [
+                "十",
+                "個",
+                "十",
+                "是",
+                "一",
+                null
+              ]
+            },
+            {
+              "kind": "scheduled",
+              "template": "listen"
+            },
+            {
+              "kind": "fixed",
+              "answer": "千",
+              "en": "And ten stacks of those, all the way down the road?",
+              "parts": [
+                "十",
+                "個",
+                "一",
+                "百",
+                "是",
+                "一",
+                null
+              ]
+            },
+            {
+              "kind": "scheduled",
+              "template": "add"
+            }
+          ],
+          "onDone": {
+            "unblock": true,
+            "counters": {
+              "donkeys": "+5"
+            }
+          }
+        }
+      ],
+      "props": []
+    },
+    {
+      "id": "road",
+      "name": "The road home",
+      "nameZh": "回家的路",
+      "lesson": 2,
+      "open": "Ten donkeys, and the light going. Nearly home.",
+      "map": {
+        "w": 32,
+        "h": 18,
+        "path": {
+          "base": 8.0,
+          "amp": 1.5,
+          "period": 8.0,
+          "width": 2
+        },
+        "treeXs": [
+          3,
+          7,
+          11,
+          15,
+          19,
+          23,
+          27
+        ],
+        "walls": [],
+        "features": [
+          {
+            "kind": "rock",
+            "x": 13,
+            "y": "path-3"
+          },
+          {
+            "kind": "rock",
+            "x": 21,
+            "y": "path+3"
+          }
+        ]
+      },
+      "spawn": {
+        "x": 2,
+        "y": "path"
+      },
+      "finale": true,
+      "actors": [
+        {
+          "id": "xiaoxiao",
+          "sprite": "pal",
+          "name": "小小",
+          "nameEn": "Shau Shau",
+          "x": 3,
+          "y": "path",
+          "follows": true
+        },
+        {
+          "id": "squirrelpost",
+          "sprite": "squirrel",
+          "name": "小松鼠",
+          "nameEn": "the little squirrel",
+          "x": 16,
+          "y": "path-1",
+          "intro": "Before we go down — say them all once more, so you do not forget them.",
+          "reward": "The squirrel looks pleased with you.",
+          "script": [
+            {
+              "kind": "scheduled",
+              "template": "listen"
+            },
+            {
+              "kind": "scheduled",
+              "template": "listen"
+            },
+            {
+              "kind": "scheduled",
+              "template": "add"
+            },
+            {
+              "kind": "scheduled",
+              "template": "listen"
+            },
+            {
+              "kind": "scheduled",
+              "template": "sub"
+            }
+          ],
+          "onDone": {
+            "coins": 4
+          }
+        }
+      ],
+      "props": [],
+      "finaleScript": {
+        "name": "小小",
+        "lines": [
+          "We made it! Let me count them one last time. 一、二、三、四、五、六、七、八、九 … 九?",
+          "Only 九! One of them is gone. Where is it? It was here a minute ago!"
+        ],
+        "prompt": "小小 is sitting on one of them. How many donkeys are really there?",
+        "answer": "十",
+        "choices": [
+          "八",
+          "九",
+          "十"
+        ],
+        "parts": [
+          "一",
+          "共",
+          null,
+          "頭",
+          "驢"
+        ],
+        "after": "He counted every donkey except the one underneath him.",
+        "coins": 5
+      }
+    }
+  ]
+}

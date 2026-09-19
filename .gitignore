@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.vite/
+*.local
+
+# Python tooling
+__pycache__/
+*.pyc
+.venv/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Generated audio is committed on purpose (see DESIGN.md 4.3) -- only the
+# intermediate work directory is ignored.
+content/audio/.cache/

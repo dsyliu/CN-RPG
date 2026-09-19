@@ -1,0 +1,22 @@
+{
+  "name": "cn-rpg",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A 2D learning RPG for 美洲華語 第一冊, for first graders at a Sunday Chinese school.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "check": "tsc --noEmit",
+    "content": "python tools/build_content.py",
+    "audio": "python tools/gen_audio.py"
+  },
+  "dependencies": {
+    "phaser": "^3.80.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  }
+}
